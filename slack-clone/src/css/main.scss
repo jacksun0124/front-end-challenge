@@ -1,0 +1,48 @@
+$topHeight: 100px;
+$leftWidth: 200px;
+
+body {
+    background-color: #222222;
+    color: #fff;
+    margin: 0;
+}
+
+.app, .container {
+    height: 100vh;
+    width: 100vw;
+    background-color: #121016;
+    overflow: hidden;
+    
+
+}
+
+.top {
+    height: $topHeight;
+    width: 100%;
+    background-color: #121016;
+    box-shadow: 0 1px 0 0 rgb(209 210 211 / 10%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main{
+    display: flex;
+    height: calc(100% - $topHeight);
+    width: 100%;
+    background-color: #2196f3;
+}
+
+.left {
+    // display: inline-block;
+    height: 100%;
+    width: $leftWidth;
+    background-color: #f44336;
+}
+
+.right {
+    // display: inline-block;
+    height: 100%;
+    width: calc(100vw - $leftWidth);
+    background-color: #132a63;
+}
