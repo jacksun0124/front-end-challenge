@@ -1,10 +1,10 @@
-// Books.js
 import React from "react";
 import { connect } from "react-redux";
 import { appendData, asyncLoadData } from "../../store/action";
 import { Link } from "react-router-dom";
+import imageUrl from '/src/image/user.png';
 
-class Channels extends React.Component {
+class LeftContent extends React.Component {
 	componentDidMount() {
 		// let name = 'Channels';
 		let arr = [];
@@ -32,23 +32,24 @@ class Channels extends React.Component {
 	}
 
 	render() {
-		console.log("Channels props: ", this.props);
+		// console.log("LeftContent props: ", this.props);
 
-		const {  channels, chats } = this.props;
+		const { channels, chats } = this.props;
 
 		let channelList = channels.length > 0
 			&& channels.map((item, i) => {
 				return (
-					<div key={i} >
-						<Link to={`/channel/${item.id}`}>{item.name}</Link>
+					<div key={"channel"+i} className="left-item">
+						# <Link to={`/channel/${item.id}`}>{item.name}</Link>
 					</div>
 				)
 			}, this);
-		
+
 		let chatList = chats.length > 0
 			&& chats.map((item, i) => {
 				return (
-					<div key={i} >
+					<div key={"chat"+i} className="left-item">
+						<img src={imageUrl} alt="picture" className="user-img"/>
 						<Link to={`/chat/${item.id}`}>{item.name}</Link>
 					</div>
 				)
@@ -56,11 +57,12 @@ class Channels extends React.Component {
 
 		return (
 			<div>
-				<div>Channels</div>
+				<div className="left-item">Channels</div>
 				<div>
 					{channelList}
 				</div>
-				<div>Chats</div>
+				<br></br>
+				<div className="left-item">Direct messages</div>
 				<div>
 					{chatList}
 				</div>
@@ -80,4 +82,4 @@ const mapStateToProps = state => ({
 	chats: state.chats
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Channels);
+export default connect(mapStateToProps, mapDispatchToProps)(LeftContent);

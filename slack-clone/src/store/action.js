@@ -7,6 +7,31 @@ const setData = (content) => {
 	}
 }
 
+const updateChannels = (channels) => {
+	return (dispatch) => {
+		//add data to store
+		dispatch(
+			{
+				type: "UPDATE_CHANNELS",
+				payload: channels
+			}
+		)
+	}
+}
+
+const updateChats = (chats) => {
+	return (dispatch) => {
+		//add data to store
+		dispatch(
+			{
+				type: "UPDATE_CHATS",
+				payload: chats
+			}
+		)
+	}
+}
+
+
 const appendData = (obj) => {
 	return (dispatch) => {
 		//add data to store
@@ -20,7 +45,7 @@ const asyncLoadData = () => {
 			// async load data
 			data.getData().then((data) => {
 				//debug log data
-				console.log("data: ", data);
+				// console.log("data: ", data);
 
 				let obj = {
 					channels: data.channel,
@@ -33,7 +58,7 @@ const asyncLoadData = () => {
 				// handle error
 				console.log(err);
 			})
-			
+
 		}, 300);
 
 	}
@@ -41,5 +66,7 @@ const asyncLoadData = () => {
 
 export {
 	appendData,
-	asyncLoadData
+	asyncLoadData,
+	updateChannels,
+	updateChats
 }

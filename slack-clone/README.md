@@ -19,7 +19,7 @@ Structure:
 1. sidebar on the left:
   + list of channels
     + add / remove button
-  + list of users - direct messages
+  + list of users direct messages- 
 2. chat window on the right
   + list of messages
     + each message

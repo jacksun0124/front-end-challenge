@@ -4,7 +4,7 @@ import App from './modules/app.js';
 import { BrowserRouter } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 import { Provider } from "react-redux";
-import store from './store/channel/shore.js';
+import store from './store/store.js';
 
 root.render(
     <React.StrictMode>

@@ -63,28 +63,51 @@
 // export default Chat;
 
 
+// import { Routes, Route, useParams } from "react-router-dom";
+// import React, {useState, useEffect} from 'react';
+// import ChatDetail from './chatDetail.js';
+
+// function Chat(props) {
+//     const { type, id } = useParams();
+    
+//     console.log("useParams: ", useParams());
+
+//     console.log("Chat props: ", props);
+
+//     // const [mid, setId] = useState(id);
+
+//     // useEffect(() => {
+//     //     console.log("Chat id: ", id);
+//     //     setId(mid);
+//     // },[id]);
+
+//     return (
+//         <div>
+//             <h1>chat page </h1>
+//             <div>type: {type}</div>
+//             <div>id: {id}</div>
+//             {/* <ChatDetail id={id} /> */}
+//         </div>
+//     );
+// }
+
+// export default Chat;
+
+
+
 import { Routes, Route, useParams } from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import ChatDetail from './chatDetail.js';
 
 function Chat(props) {
     const { type, id } = useParams();
-    
-    console.log("useParams: ", useParams());
-
-    // const [mid, setId] = useState(id);
-
-    // useEffect(() => {
-    //     console.log("Chat id: ", id);
-    //     setId(mid);
-    // },[id]);
 
     return (
         <div>
-            <h1>chat page </h1>
+            {/* <h1>chat page </h1>
             <div>type: {type}</div>
-            <div>id: {id}</div>
-            {/* <ChatDetail id={id} /> */}
+            <div>id: {id}</div> */}
+            <ChatDetail id={id} type={type}/>
         </div>
     );
 }

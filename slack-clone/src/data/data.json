@@ -1,23 +1,55 @@
 {
-    "channel":[
+    "channel": [
         {
-            "id":1,
-            "name":"Dev"
+            "id": 1,
+            "name": "Dev",
+            "chatlog": [
+                {
+                    "text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
+                    "timestamp": "10:05 AM",
+                    "side": "left",
+                    "message_id": 5
+                }
+            ]
         },
         {
-            "id":2,
-            "name":"Test"
+            "id": 2,
+            "name": "Test",
+            "chatlog": [
+                {
+                    "text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
+                    "timestamp": "10:05 AM",
+                    "side": "left",
+                    "message_id": 5
+                }
+            ]
         },
         {
-            "id":3,
-            "name":"Uat"
+            "id": 3,
+            "name": "Uat",
+            "chatlog": [
+                {
+                    "text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
+                    "timestamp": "10:05 AM",
+                    "side": "left",
+                    "message_id": 5
+                }
+            ]
         },
         {
-            "id":4,
-            "name":"Prod"
+            "id": 4,
+            "name": "Prod",
+            "chatlog": [
+                {
+                    "text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
+                    "timestamp": "10:05 AM",
+                    "side": "left",
+                    "message_id": 5
+                }
+            ]
         }
     ],
-    "chat":[
+    "chat": [
         {
             "id": 2,
             "name": "Alex",
