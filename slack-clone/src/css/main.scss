@@ -43,9 +43,9 @@ body {
     overflow: scroll;
     color: rgba(209, 210, 211, 0.7);
 
-    .left-box{
+    .left-box {
         padding: 10px 18px;
-        box-shadow: 0 .5px 0 0 rgba(209, 210, 211, 0.3);
+        box-shadow: 0 0.5px 0 0 rgba(209, 210, 211, 0.3);
 
         .left-title {
             display: block;
@@ -60,16 +60,53 @@ body {
 
         .left-item {
             line-height: 28px;
-            // padding: 10px 0;
+            // justify-content: center;
+            align-items: center;
+            display: flex;
+            padding: 2px 0;
 
-            a{
+            a {
                 color: rgba(209, 210, 211, 0.7);
                 text-decoration: none;
+                flex-grow: 1;
             }
 
-            .user-img{
+            .user-img {
                 border-radius: 3px;
                 margin-right: 5px;
+            }
+
+            .remove-mate{
+                width: 24px;
+                height: 24px;
+                border-radius: 3px;
+                color:#333;
+                text-align: center;
+                font-size: 20px;
+                display: none;
+                cursor: pointer;
+            }
+
+            .remove-mate:hover{
+                color: #fff;
+            }
+
+
+            &:hover {
+                background-color: rgba(209, 210, 211, 0.3);
+                .remove-mate{
+                    display: block;
+                }
+            }
+
+            .add-icon {
+                border-radius: 3px;
+                margin-right: 5px;
+                background-color: #ddd;
+            }
+
+            .addBtn {
+                display: inline;
             }
         }
     }
@@ -82,13 +119,13 @@ body {
     // overflow: scroll;
     color: rgb(209, 210, 211);
 
-    .chat-panel{
+    .chat-panel {
         display: flex;
         flex-direction: column;
         height: calc(100vh - $topHeight);
     }
 
-    .chat-top{
+    .chat-top {
         font-size: 14px;
         // height: 50px;
         width: 100%;
@@ -96,55 +133,83 @@ body {
         box-shadow: 0 1px 0 0 rgb(209 210 211 / 10%);
     }
 
-    .msg{
+    .msg-item{
+        display: flex;
+
+        .remove-msg{
+            width: 24px;
+            height: 24px;
+            border-radius: 3px;
+            color:#777;
+            text-align: center;
+            font-size: 20px;
+            display: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .remove-msg:hover{
+            color: #fff;
+        }
+
+        &:hover {
+            background-color: #444;
+            .remove-msg{
+                // background-color: #777;
+                display: block;
+            }
+        }
+    }
+    .msg {
         overflow: scroll;
-        flex-grow:1;
+        flex-grow: 1;
     }
 
-    .message-box{
+    
+
+    .message-box {
         display: flex;
         padding: 10px 0;
 
-        .user-img{
+        .user-img {
             width: 35px;
             height: 35px;
             border-radius: 3px;
             margin-right: 10px;
         }
 
-        .message-box-right-top{
+        .message-box-right-top {
             display: flex;
             //vertical-align: center;
             align-items: center;
 
-
-            .message-box-right-top-time{
+            .message-box-right-top-time {
                 margin-left: 10px;
                 font-size: 12px;
-                color:rgba(209, 210, 211, 0.7);
+                color: rgba(209, 210, 211, 0.7);
             }
         }
 
-        .message-box-right-bottom{
+        .message-box-right-bottom {
             padding: 10px 0;
         }
     }
 
-    .input-box{
+    .input-box {
         background-color: #222529;
         margin: 20px;
         padding: 10px;
         border-radius: 5px;
         color: rgb(209, 210, 211);
-        border: .5px solid rgb(209, 210, 211, 0.2);
+        border: 0.5px solid rgb(209, 210, 211, 0.2);
         display: flex;
 
-        textarea{
+        textarea {
             background-color: transparent;
             box-shadow: none;
             flex-grow: 1;
-            color:rgb(209, 210, 211);
-            &:focus{
+            color: rgb(209, 210, 211);
+            &:focus {
                 outline: none;
             }
         }

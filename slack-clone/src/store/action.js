@@ -7,27 +7,32 @@ const setData = (content) => {
 	}
 }
 
-const updateChannels = (channels) => {
-	return (dispatch) => {
-		//add data to store
-		dispatch(
-			{
-				type: "UPDATE_CHANNELS",
-				payload: channels
-			}
-		)
+const addChatMsg = (content) => {
+	return {
+		type: "UPDATE_CHAT",
+		content
 	}
 }
 
-const updateChats = (chats) => {
+const removeChatMsg = (id, index) => {
+	return {
+		type: "REMOVE_CHAT",
+		id, index
+	}
+}
+
+
+const appendChatData = (obj) => {
 	return (dispatch) => {
-		//add data to store
-		dispatch(
-			{
-				type: "UPDATE_CHATS",
-				payload: chats
-			}
-		)
+		//add chat data to store
+		dispatch(addChatMsg(obj));
+	}
+}
+
+const removeChatData = (id, index) => {
+	return (dispatch) => {
+		//remove chat data from store
+		dispatch(removeChatMsg(id, index));
 	}
 }
 
@@ -38,6 +43,8 @@ const appendData = (obj) => {
 		dispatch(setData(obj));
 	}
 }
+
+
 
 const asyncLoadData = () => {
 	return (dispatch) => {
@@ -66,7 +73,7 @@ const asyncLoadData = () => {
 
 export {
 	appendData,
-	asyncLoadData,
-	updateChannels,
-	updateChats
+	appendChatData,
+	removeChatData,
+	asyncLoadData
 }

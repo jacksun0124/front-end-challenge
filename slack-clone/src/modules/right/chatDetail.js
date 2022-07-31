@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { appendData, asyncLoadData, updateChats } from "../../store/action";
+import { appendData, asyncLoadData, appendChatData, removeChatData } from "../../store/action";
 import ChatTop from "./chatTop";
 import Message from "./message";
 import _ from "lodash";
+import { Map } from 'immutable';
 
 
 //Chat is a component that will be rendered in the right
@@ -13,27 +14,19 @@ class ChatDetail extends React.Component {
         this.state = {
             id: props.id,
             type: props.type,
-            channels: [],
-            chats: [],
+            chatObj: [],
+            chatDetail: [],
         };
     }
 
     componentDidMount() {
         console.log("ChatDetail componentDidMount");
-
-        const { channels, chats } = this.props;
-        console.log("ChatDetail Channels: ", channels);
-
-
-        // this.setState({
-        //     channels: channels,
-        //     chats: chats,
-        // });
     }
 
     //check if user switch to another chat
     componentDidUpdate(prevProps, prevState) {
         console.log("ChatDetail componentDidUpdate");
+        console.log("this.props: " , this.props);
 
         // console.log("prevProps id: ", prevProps.id);
         // console.log("prevProps type: ", prevProps.type);
@@ -52,8 +45,6 @@ class ChatDetail extends React.Component {
         //     console.log("chats not equal");
         // }
 
-        
-
     }
 
     setData = (channels, chats) => {
@@ -64,12 +55,37 @@ class ChatDetail extends React.Component {
         });
     }
 
+    removeMsg = (index) => {
+        // const { channels, chats } = this.props;
+
+        console.log("remove msg");
+        console.log("id: ", this.state.id);
+        console.log("index: ", index);
+
+        // let chat = chats[this.state.id];
+
+
+        // console.log("chat: ", chat);
+
+        // const content = {
+        //     id: this.state.id,
+        //     index: index,
+        // };
+
+        this.props.removeChatData(this.state.id, index);
+    }
+
     messages = (obj) => {
         var rows = [];
         obj.chatlog.map((item, i) => {
             rows.push(
                 <div key={"msg-" + obj.id + i} className="msg-item">
-                    <Message name={obj.name} time={item.timestamp} message={item.text} />
+                    <Message name={item.side === "left"? obj.name : "Me"} time={item.timestamp} message={item.text} />
+                    <div className="remove-msg"  onClick={() => {
+							this.removeMsg(item.message_id);
+						}}>
+							X
+						</div>
                 </div>
             )
         });
@@ -106,61 +122,55 @@ class ChatDetail extends React.Component {
     }
 
     updateData = (text) => {
+        
+
         if (text === "") {
             return;
         } else {
             const { channels, chats } = this.props;
-            let tempChannels = channels;
-            let tempChats = chats;
+
+            
             //check chat type
             if (this.state.type === 'channel') {
                 console.log("updateData channel");
-                channels.map((item, i) => {
-                    if (item.id === this.state.id) {
-                        channels[i].chatlog.push({
-                            timestamp: new Date().toLocaleString(),
-                            text: text,
-                            message_id: Math.floor(Math.random() * 1000000)
-                        });
-                    }
-                });
-
-                //channels log each text message
-                console.log(JSON.stringify(channels));
-
-                this.props.appendData({
-                    channels: channels,
-                    chats: chats
-                });
 
 
 
             } else if (this.state.type === 'chat') {
                 console.log("updateData chat");
-                tempChats.map((item, i) => {
-                    if (item.id === parseInt(this.state.id)) {
-                        tempChats[i].chatlog.push({
-                            timestamp: new Date().toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
-                            text: text,
-                            message_id: Math.floor(Math.random() * 1000000)
-                        });
-                    }
-                }
-                    , this);
-
-                
-
-                updateChats(tempChats);
-
-                const { channels, chats } = this.props;
-
+                let message_id; 
 
                 chats.map((item, i) => {
-                    if (item.id === parseInt(this.state.id)) {
-                        //channels log each text message
-                        console.log("new chat: "+ JSON.stringify(item));
+                    if (item.id === this.state.id) {
+                        // check if item.length is 0
+                        if (item.chatlog.length === 0) {
+                            message_id = 0;
+                            return;
+                        }else{
+                            message_id = item[item.length -1]['message_id'] + 1;
+                            return; 
+                        }
                     }
-                });
+                })
+
+                // let chat = tempChats.filter(item => item.id === this.state.id);
+
+                const msg = {
+                    mid: this.state.id,
+                    content:{
+                        text: text,
+                        side: "right",
+                        timestamp:new Date().toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+                        message_id: message_id
+                    }
+                }
+
+                const c = {
+                    channels: channels,
+                    chats: chats
+                }
+
+                this.props.appendChatData(msg);
 
             }
         }
@@ -226,7 +236,8 @@ class ChatDetail extends React.Component {
 const mapDispatchToProps = {
     appendData,
     asyncLoadData,
-    updateChats
+    appendChatData,
+    removeChatData
 }
 
 const mapStateToProps = state => ({

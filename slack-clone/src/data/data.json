@@ -51,7 +51,7 @@
     ],
     "chat": [
         {
-            "id": 2,
+            "id": 0,
             "name": "Alex",
             "picture": "https://image.ibb.co/cA2oOb/alex_1.jpg",
             "chatlog": [
@@ -88,7 +88,7 @@
             ]
         },
         {
-            "id": 3,
+            "id": 1,
             "name": "Bob",
             "picture": "https://image.ibb.co/gSyTOb/bob_1.jpg",
             "chatlog": [
@@ -119,73 +119,73 @@
             ]
         },
         {
-            "id": 4,
+            "id": 2,
             "name": "Luke",
             "picture": "https://image.ibb.co/jOzeUG/luke_1.jpg",
             "chatlog": []
         },
         {
-            "id": 5,
+            "id": 3,
             "name": "Bane",
             "picture": "https://image.ibb.co/cBZPww/bane_1.jpg",
             "chatlog": []
         },
         {
-            "id": 6,
+            "id": 4,
             "name": "Darth Vader",
             "picture": "https://image.ibb.co/j4Ov3b/darth_vader_1.png",
             "chatlog": []
         },
         {
-            "id": 7,
+            "id": 5,
             "name": "Zach",
             "picture": "https://image.ibb.co/b4kxGw/zach_1.jpg",
             "chatlog": []
         },
         {
-            "id": 8,
+            "id": 6,
             "name": "Katie",
             "picture": "https://image.ibb.co/eLVWbw/katie_1.jpg",
             "chatlog": []
         },
         {
-            "id": 9,
+            "id": 7,
             "name": "Chloe",
             "picture": "https://image.ibb.co/ncAa3b/chloe_1.jpg",
             "chatlog": []
         },
         {
-            "id": 10,
+            "id": 8,
             "name": "Kennith",
             "picture": "https://image.ibb.co/fQKPww/kennith_1.jpg",
             "chatlog": []
         },
         {
-            "id": 11,
+            "id": 9,
             "name": "Tara",
             "picture": "https://image.ibb.co/dM6hib/tara_1.jpg",
             "chatlog": []
         },
         {
-            "id": 12,
+            "id": 10,
             "name": "Gary",
             "picture": "https://image.ibb.co/gsF8Ob/gary_1.jpg",
             "chatlog": []
         },
         {
-            "id": 13,
+            "id": 11,
             "name": "Zoey",
             "picture": "https://image.ibb.co/nd0Wbw/zoey_1.jpg",
             "chatlog": []
         },
         {
-            "id": 14,
+            "id": 12,
             "name": "Ash",
             "picture": "https://image.ibb.co/iasYpG/ash_1.jpg",
             "chatlog": []
         },
         {
-            "id": 15,
+            "id": 13,
             "name": "Zen",
             "picture": "https://image.ibb.co/eeqWbw/zen_1.jpg",
             "chatlog": []
