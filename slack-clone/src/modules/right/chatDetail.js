@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { appendData, asyncLoadData, appendChatData, removeChatData } from "../../store/action";
 import ChatTop from "./chatTop";
-import Message from "./message";
+import Messages from "./messages";
 import _ from "lodash";
 import { Map } from 'immutable';
 
@@ -16,22 +16,19 @@ class ChatDetail extends React.Component {
             type: props.type,
             chatObj: [],
             chatDetail: [],
+            loaded: false,
         };
     }
 
     componentDidMount() {
-        console.log("ChatDetail componentDidMount");
+        // console.log("ChatDetail componentDidMount");
     }
 
-    //check if user switch to another chat
+    //check if user switched to another chat
     componentDidUpdate(prevProps, prevState) {
-        console.log("ChatDetail componentDidUpdate");
-        console.log("this.props: " , this.props);
+        // console.log("ChatDetail componentDidUpdate");
+        // console.log("this.props: ", this.props);
 
-        // console.log("prevProps id: ", prevProps.id);
-        // console.log("prevProps type: ", prevProps.type);
-        // console.log("this.props id: ", this.props.id);
-        // console.log("this.props type: ", this.props.type);
 
         if (this.props.id !== prevProps.id || this.props.type !== prevProps.type) {
             // console.log("ChatDetail componentDidUpdate true");
@@ -41,9 +38,15 @@ class ChatDetail extends React.Component {
                 type: this.props.type
             });
         }
-        // else if (!_.isEqual(this.props.chats, prevProps.chats)) {
-        //     console.log("chats not equal");
-        // }
+
+        if (this.props.chats != undefined && this.props.channels != undefined
+            && (_.isEqual(this.props.chats, prevProps.chats) === false ||
+                _.isEqual(this.props.channels, prevProps.channels) === false)) {
+
+            this.setState({
+                loaded: true,
+            });
+        }
 
     }
 
@@ -55,46 +58,6 @@ class ChatDetail extends React.Component {
         });
     }
 
-    removeMsg = (index) => {
-        // const { channels, chats } = this.props;
-
-        console.log("remove msg");
-        console.log("id: ", this.state.id);
-        console.log("index: ", index);
-
-        // let chat = chats[this.state.id];
-
-
-        // console.log("chat: ", chat);
-
-        // const content = {
-        //     id: this.state.id,
-        //     index: index,
-        // };
-
-        this.props.removeChatData(this.state.id, index);
-    }
-
-    messages = (obj) => {
-        var rows = [];
-        obj.chatlog.map((item, i) => {
-            rows.push(
-                <div key={"msg-" + obj.id + i} className="msg-item">
-                    <Message name={item.side === "left"? obj.name : "Me"} time={item.timestamp} message={item.text} />
-                    <div className="remove-msg"  onClick={() => {
-							this.removeMsg(item.message_id);
-						}}>
-							X
-						</div>
-                </div>
-            )
-        });
-
-        return (
-            <div className="msg" key={obj.id}>{rows}</div>
-        );
-
-    }
 
     inputBox = () => {
         return (
@@ -122,23 +85,19 @@ class ChatDetail extends React.Component {
     }
 
     updateData = (text) => {
-        
-
         if (text === "") {
             return;
         } else {
             const { channels, chats } = this.props;
 
-            
+
             //check chat type
             if (this.state.type === 'channel') {
                 console.log("updateData channel");
 
-
-
             } else if (this.state.type === 'chat') {
                 console.log("updateData chat");
-                let message_id; 
+                let message_id;
 
                 chats.map((item, i) => {
                     if (item.id === this.state.id) {
@@ -146,9 +105,9 @@ class ChatDetail extends React.Component {
                         if (item.chatlog.length === 0) {
                             message_id = 0;
                             return;
-                        }else{
-                            message_id = item[item.length -1]['message_id'] + 1;
-                            return; 
+                        } else {
+                            message_id = item[item.length - 1]['message_id'] + 1;
+                            return;
                         }
                     }
                 })
@@ -157,10 +116,10 @@ class ChatDetail extends React.Component {
 
                 const msg = {
                     mid: this.state.id,
-                    content:{
+                    content: {
                         text: text,
                         side: "right",
-                        timestamp:new Date().toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+                        timestamp: new Date().toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
                         message_id: message_id
                     }
                 }
@@ -179,52 +138,27 @@ class ChatDetail extends React.Component {
 
 
     render() {
-        // console.log("ChatDetail props: ", this.props);
 
-        const { channels, chats } = this.props;
-
-
-
-        // console.log("ChatDetail Channels: ", channels);
-        // console.log("ChatDetail Chats: ", chats);
-
+        let { channels, chats } = this.props;
 
         //chatObj hold the chat message
         let chatObj = [];
-        let chatDetail = [];
 
         //check chat type
         if (this.state.type === 'channel') {
             // console.log("ChatDetail type: ", this.state.type);
 
-            chatDetail = channels.length > 0
-                && channels.map((item, i) => {
-
-                    if (item.id == parseInt(this.state.id)) {
-                        console.log("ChatDetail item.id: ", item.id);
-                        chatObj = item;
-                        return this.messages(item);
-                    }
-                }, this);
+            chatObj = [...channels.filter(item => item.id === parseInt(this.state.id))];
         } else if (this.state.type === 'chat') {
             // console.log("ChatDetail type: ", this.state.type);
-            chatDetail = chats.length > 0
-                && chats.map((item, i) => {
-
-                    if (item.id === parseInt(this.state.id)) {
-                        console.log("ChatDetail item.id: ", item.id);
-                        chatObj = item;
-                        return this.messages(item);
-                    }
-                }, this);
+            chatObj = [...chats.filter(item => item.id === parseInt(this.state.id))];
         }
+
 
         return (
             <div className="chat-panel">
-                <ChatTop name={chatObj.name} />
-                {/* {this.state.id}
-                {this.state.type} */}
-                {chatDetail}
+                {this.state.loaded ? <ChatTop name={chatObj[0].name} /> : <div className="loading">Loading...</div>}
+                <Messages id={this.state.id} messages={chatObj[0]} />
                 {this.inputBox()}
 
             </div>

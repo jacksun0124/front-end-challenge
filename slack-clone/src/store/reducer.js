@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 const reducer = createReducer(INITIAL_STATE, {
 	REMOVE_CHAT: (state, action) => {
 		console.log("REMOVE_CHAT : ", action);
-		state.chats[action.id].chatlog = state.chats[action.id].chatlog.filter(item => item['message_id'] != action.index);
+		state.chats[action.id].chatlog = [...state.chats[action.id].chatlog.filter(item => item['message_id'] != action.index)];
 	},
 	UPDATE_CHAT: (state, action) => {
 		//insert chat data to store
