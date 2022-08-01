@@ -1,50 +1,61 @@
 {
     "channel": [
         {
-            "id": 1,
+            "id": 0,
             "name": "Dev",
             "chatlog": [
                 {
                     "text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
                     "timestamp": "10:05 AM",
                     "side": "left",
-                    "message_id": 5
+                    "message_id": 1,
+                    "name":"Alex"
+                },
+                {
+                    "text": "Hi",
+                    "timestamp": "10:09 AM",
+                    "side": "left",
+                    "message_id": 2,
+                    "name":"Flex"
                 }
             ]
         },
         {
-            "id": 2,
+            "id": 1,
             "name": "Test",
             "chatlog": [
                 {
                     "text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
                     "timestamp": "10:05 AM",
                     "side": "left",
-                    "message_id": 5
+                    "message_id": 5,
+                    "name":"Alex"
                 }
             ]
         },
         {
-            "id": 3,
+            "id": 2,
             "name": "Uat",
             "chatlog": [
                 {
                     "text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
                     "timestamp": "10:05 AM",
                     "side": "left",
-                    "message_id": 5
+                    "message_id": 5,
+                    "name":"Alex"
                 }
             ]
         },
         {
-            "id": 4,
+            "id": 3,
             "name": "Prod",
             "chatlog": [
                 {
                     "text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
                     "timestamp": "10:05 AM",
                     "side": "left",
-                    "message_id": 5
+                    "message_id": 5,
+                    "name":"Alex"
                 }
             ]
         }

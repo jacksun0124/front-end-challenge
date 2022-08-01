@@ -4,10 +4,9 @@ import { appendData, asyncLoadData, appendChatData, removeChatData } from "../..
 import ChatTop from "./chatTop";
 import Messages from "./messages";
 import _ from "lodash";
-import { Map } from 'immutable';
 
 
-//Chat is a component that will be rendered in the right
+//ChatDetail include ChatTop, Messages and ChatInput
 class ChatDetail extends React.Component {
     constructor(props) {
         super(props);
@@ -36,7 +35,12 @@ class ChatDetail extends React.Component {
             this.setState({
                 id: this.props.id,
                 type: this.props.type
-            });
+            },
+                // () => {
+                //     console.log("id: ", this.state.id);
+                //     console.log("type: ", this.state.type);
+                // }
+            );
         }
 
         if (this.props.chats != undefined && this.props.channels != undefined
@@ -89,15 +93,43 @@ class ChatDetail extends React.Component {
             return;
         } else {
             const { channels, chats } = this.props;
-
+            let message_id;
 
             //check chat type
             if (this.state.type === 'channel') {
                 console.log("updateData channel");
+                channels.map((item, i) => {
+                    if (item.id === parseInt(this.state.id)) {
+                        console.log("updateData item.id: ", item.id);
+
+                        // check if item.length is 0
+                        if (item.chatlog.length === 0) {
+                            message_id = 0;
+                            return;
+                        } else {
+                            message_id = item.chatlog[item.chatlog.length - 1]['message_id'] + 1;
+                            return;
+                        }
+                    }
+                });
+
+                const msg = {
+                    mid: this.state.id,
+                    type: this.state.type,
+                    content: {
+                        text: text,
+                        side: "right",
+                        timestamp: new Date().toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+                        message_id: message_id,
+                        name:"Me"
+                    }
+                }
+    
+                this.props.appendChatData(msg);
 
             } else if (this.state.type === 'chat') {
                 console.log("updateData chat");
-                let message_id;
+                
 
                 chats.map((item, i) => {
                     if (item.id === parseInt(this.state.id)) {
@@ -112,12 +144,11 @@ class ChatDetail extends React.Component {
                             return;
                         }
                     }
-                })
-
-                // console.log("message_id: ", message_id);
+                });
 
                 const msg = {
                     mid: this.state.id,
+                    type: this.state.type,
                     content: {
                         text: text,
                         side: "right",
@@ -125,10 +156,12 @@ class ChatDetail extends React.Component {
                         message_id: message_id
                     }
                 }
-
+    
                 this.props.appendChatData(msg);
 
             }
+
+            
         }
 
     }
@@ -144,7 +177,6 @@ class ChatDetail extends React.Component {
         //check chat type
         if (this.state.type === 'channel') {
             // console.log("ChatDetail type: ", this.state.type);
-
             chatObj = [...channels.filter(item => item.id === parseInt(this.state.id))];
         } else if (this.state.type === 'chat') {
             // console.log("ChatDetail type: ", this.state.type);
@@ -155,7 +187,7 @@ class ChatDetail extends React.Component {
         return (
             <div className="chat-panel">
                 {this.state.loaded ? <ChatTop name={chatObj[0].name} /> : <div className="loading">Loading...</div>}
-                <Messages id={this.state.id} messages={chatObj[0]} />
+                <Messages id={this.state.id} messages={chatObj[0]} type={this.state.type} />
                 {this.inputBox()}
 
             </div>

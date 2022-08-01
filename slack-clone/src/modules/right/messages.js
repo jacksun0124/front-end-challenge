@@ -4,11 +4,14 @@ import { removeChatData } from "../../store/action";
 import Message from "./message";
 import _ from "lodash";
 
+
+//Messages a list of message components
 class Messages extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id: props.id,
+            type: props.type,
             messages: "",
             loaded: false,
         }
@@ -16,6 +19,15 @@ class Messages extends React.Component {
 
     componentDidMount() {
         console.log("Messages componentDidMount");
+    }
+
+    getName = (item) => {
+        if (this.props.type === "chat") {
+            return item.side === "left" ? this.props.messages.name : "Me";
+        } else {
+            return item.side === "left" ? item.name: "Me";
+        }
+
     }
 
     //check if user switch to another chat
@@ -30,8 +42,8 @@ class Messages extends React.Component {
             }, () => {
                 const msgs = this.props.messages.chatlog.map((item, i) => {
                     // console.log("ChatDetail item "+i+": ", item);   
-                    return <div key={"msg-" + this.props.id + item.message_id} className="msg-item">
-                        <Message name={item.side === "left" ? this.props.messages.name : "Me"} time={item.timestamp} message={item.text} />
+                    return <div key={this.props.type + this.props.id + item.message_id + i} className="msg-item">
+                        <Message name={this.getName(item)} time={item.timestamp} message={item.text} />
                         <div className="remove-msg" onClick={() => {
                             this.removeMsg(item.message_id);
                         }}>
@@ -57,14 +69,14 @@ class Messages extends React.Component {
         console.log("id: ", this.state.id);
         console.log("index: ", index);
 
-        this.props.removeChatData(this.state.id, index);
+        this.props.removeChatData(this.state.id, index, this.state.type);
     }
 
     render() {
         return (
 
-            <div className="msg" key={this.state.id}>
-            {this.state.loaded ? this.state.messages : null}
+            <div className="msg" key={this.state.type+"_"+this.state.id}>
+                {this.state.loaded ? this.state.messages : <div>Loading...</div>}
             </div>
         )
     }

@@ -14,7 +14,7 @@ const addChatMsg = (content) => {
 	}
 }
 
-const removeChatMsg = (id, index) => {
+const removeChatMsg = (id, index, type) => {
 	return {
 		type: "REMOVE_CHAT",
 		id, index
@@ -29,10 +29,10 @@ const appendChatData = (obj) => {
 	}
 }
 
-const removeChatData = (id, index) => {
+const removeChatData = (id, index, type) => {
 	return (dispatch) => {
 		//remove chat data from store
-		dispatch(removeChatMsg(id, index));
+		dispatch(removeChatMsg(id, index, type));
 	}
 }
 
