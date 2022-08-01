@@ -100,19 +100,21 @@ class ChatDetail extends React.Component {
                 let message_id;
 
                 chats.map((item, i) => {
-                    if (item.id === this.state.id) {
+                    if (item.id === parseInt(this.state.id)) {
+                        console.log("updateData item.id: ", item.id);
+
                         // check if item.length is 0
                         if (item.chatlog.length === 0) {
                             message_id = 0;
                             return;
                         } else {
-                            message_id = item[item.length - 1]['message_id'] + 1;
+                            message_id = item.chatlog[item.chatlog.length - 1]['message_id'] + 1;
                             return;
                         }
                     }
                 })
 
-                // let chat = tempChats.filter(item => item.id === this.state.id);
+                // console.log("message_id: ", message_id);
 
                 const msg = {
                     mid: this.state.id,
@@ -122,11 +124,6 @@ class ChatDetail extends React.Component {
                         timestamp: new Date().toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
                         message_id: message_id
                     }
-                }
-
-                const c = {
-                    channels: channels,
-                    chats: chats
                 }
 
                 this.props.appendChatData(msg);
